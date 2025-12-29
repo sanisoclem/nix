@@ -1,10 +1,12 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
     ./configs
+    inputs.lazyvim.homeManagerModules.default
   ];
 
   home = {
@@ -21,6 +23,7 @@
   };
 
   programs = {
+    lazyvim.enable = true;
     fastfetch.enable = true;
     git.enable = true;
     bash = {

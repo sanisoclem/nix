@@ -5,27 +5,21 @@
   inputs,
   host,
   ...
-}:
-let
-  variables = import ../../../hosts/${host}/variables.nix;
-  barChoice = variables.barChoice or "waybar";
-  enableNoctalia = barChoice == "noctalia";
-in
-{
-  imports = lib.optionals enableNoctalia [
+}: {
+  imports = [
     inputs.noctalia.homeModules.default
   ];
 
-  config = lib.mkIf enableNoctalia {
-    programs.waybar.enable = lib.mkForce false;
-    home.packages = [ inputs.noctalia.packages.${pkgs.system}.default ];
+  config = {
+    programs.waybar.enable = false;
+    home.packages = [inputs.noctalia.packages.${pkgs.system}.default];
 
     home.file.".config/noctalia/settings.json.template" = {
       text = builtins.toJSON {
         appLauncher = {
           backgroundOpacity = 1;
           enableClipboardHistory = false;
-          pinnedExecs = [ ];
+          pinnedExecs = [];
           position = "center";
           sortByMostUsed = true;
           terminalCommand = "xterm -e";
@@ -33,7 +27,7 @@ in
         };
         audio = {
           cavaFrameRate = 60;
-          mprisBlacklist = [ ];
+          mprisBlacklist = [];
           preferredPlayer = "";
           visualizerType = "linear";
           volumeOverdrive = false;
@@ -45,7 +39,7 @@ in
           floating = false;
           marginHorizontal = 0.25;
           marginVertical = 0.25;
-          monitors = [ ];
+          monitors = [];
           position = "top";
           showCapsule = true;
           widgets = {
@@ -87,7 +81,7 @@ in
             ];
             right = [
               {
-                blacklist = [ ];
+                blacklist = [];
                 colorizeIcons = false;
                 id = "Tray";
               }
@@ -110,10 +104,9 @@ in
                 id = "Volume";
               }
               {
-                customIconPath = "/home/don/black-don-os/modules/home/fastfetch/blackdontrans.png";
                 icon = "noctalia";
                 id = "ControlCenter";
-                useDistroLogo = false;
+                useDistroLogo = true;
               }
             ];
           };
@@ -194,15 +187,14 @@ in
           colorizeIcons = true;
           displayMode = "exclusive";
           floatingRatio = 1;
-          monitors = [ "DP-1" ];
+          monitors = ["DP-1"];
           onlySameOutput = true;
-          pinnedApps = [ ];
+          pinnedApps = [];
           size = 1;
         };
         general = {
           animationDisabled = false;
           animationSpeed = 1;
-          avatarImage = "/home/don/black-don-os/modules/home/fastfetch/blackdontrans.png";
           compactLockScreen = false;
           dimDesktop = true;
           forceBlackScreenCorners = false;
@@ -243,7 +235,7 @@ in
           doNotDisturb = false;
           "location" = "top_right";
           lowUrgencyDuration = 3;
-          monitors = [ ];
+          monitors = [];
           normalUrgencyDuration = 8;
           overlayLayer = true;
           respectExpireTimeout = false;
@@ -252,7 +244,7 @@ in
           autoHideMs = 2000;
           enabled = true;
           "location" = "top_right";
-          monitors = [ ];
+          monitors = [];
           overlayLayer = true;
         };
         screenRecorder = {
@@ -302,7 +294,7 @@ in
           enabled = true;
           fillColor = "#000000";
           fillMode = "crop";
-          monitors = [ ];
+          monitors = [];
           randomEnabled = false;
           randomIntervalSec = 300;
           setWallpaperOnAllMonitors = true;
@@ -313,7 +305,7 @@ in
       };
     };
 
-    home.activation.noctaliaSettingsInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    home.activation.noctaliaSettingsInit = lib.hm.dag.entryAfter ["writeBoundary"] ''
       SETTINGS_FILE="$HOME/.config/noctalia/settings.json"
       TEMPLATE_FILE="$HOME/.config/noctalia/settings.json.template"
 
@@ -324,7 +316,7 @@ in
       fi
     '';
 
-    home.activation.noctaliaWarning = lib.hm.dag.entryAfter [ "noctaliaSettingsInit" ] ''
+    home.activation.noctaliaWarning = lib.hm.dag.entryAfter ["noctaliaSettingsInit"] ''
       $DRY_RUN_CMD echo ""
       $DRY_RUN_CMD echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
       $DRY_RUN_CMD echo "🌙 Noctalia Shell is ENABLED"

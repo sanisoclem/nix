@@ -9,6 +9,8 @@
 }: {
   imports = [
     /etc/nixos/hardware-configuration.nix
+    ./core/default.nix
+    ./optional.nix
     ./sys-packages.nix
     inputs.home-manager.nixosModules.home-manager
   ];
@@ -32,7 +34,6 @@
     gnome.gnome-keyring.enable = true;
     openssh.enable = true;
     blueman.enable = true;
-    sysc-greet.enable = false;
     displayManager = {
       sddm.enable = true;
       sessionPackages = [pkgs.niri];

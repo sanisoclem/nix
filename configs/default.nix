@@ -7,7 +7,6 @@
   imports = [
     ./btop.nix
     ./eza.nix
-    ./fzf.nix
     ./ghostty.nix
     ./git.nix
     # ./rofi
@@ -17,18 +16,19 @@
     ./swappy.nix
     ./tealdeer.nix
     ./wlogout
-    ./environment.nix
     ./niri
     ./hyprland
-    ./fish
+    ./fish.nix
     ./fishrc-personal.nix
-    ./zsh
     ./noctalia-shell
   ];
 
   qt.enable = true;
   xdg.enable = true;
   programs = {
+    zsh = {
+      enable = true;
+    };
     zoxide = {
       enable = true;
       enableBashIntegration = true;
@@ -48,5 +48,5 @@
     ghostty.enable = false;
     qt.enable = true;
   };
-  services.nwg-drawer-stylix.enable = true;
+  # services.nwg-drawer-stylix.enable = true;
 }

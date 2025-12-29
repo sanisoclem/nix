@@ -6,91 +6,27 @@
   hostKeybinds ? "",
   config,
   ...
-}:
-let
+}: let
   # Full path to dms binary for use in niri
   dmsPath = "${config.home.homeDirectory}/.local/bin/dms";
 
   # Determine launcher command based on barChoice
-  launcherCommand =
-    if barChoice == "noctalia" then
-      ''"noctalia-shell" "ipc" "call" "launcher" "toggle"''
-    else if barChoice == "dms" then
-      ''"${dmsPath}" "ipc" "call" "spotlight" "toggle"''
-    # waybar or default
-    else
-      ''"rofi" "-show" "drun"'';
+  launcherCommand = ''"noctalia-shell" "ipc" "call" "launcher" "toggle"'';
 
   # Noctalia-specific keybinds
-  noctaliaKeybinds =
-    if barChoice == "noctalia" then
-      ''
-        // === Noctalia Controls ===
-        Mod+Comma {
-            spawn "noctalia-shell" "ipc" "call" "settings" "toggle";
-        }
-        Mod+Alt+S {
-            spawn "noctalia-shell" "ipc" "call" "settings" "toggle";
-        }
-        Mod+Shift+C {
-            spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
-        }
-      ''
-    else
-      "";
-
-  # DMS-specific keybinds
-  dmsKeybinds =
-    if barChoice == "dms" then
-      ''
-        // === DMS Controls ===
-        Mod+Comma { spawn "ignis" "open-window" "Settings"; }
-        Mod+Shift+V {
-            spawn "${dmsPath}" "ipc" "call" "clipboard" "toggle";
-        }
-        Mod+M {
-            spawn "${dmsPath}" "ipc" "call" "processlist" "toggle";
-        }
-        Mod+Alt+S {
-            spawn "${dmsPath}" "ipc" "call" "settings" "toggle";
-        }
-        Mod+N { spawn "${dmsPath}" "ipc" "call" "notifications" "toggle"; }
-        Mod+Shift+N { spawn "${dmsPath}" "ipc" "call" "notepad" "toggle"; }
-
-        // === Security ===
-        Mod+Alt+L {
-            spawn "${dmsPath}" "ipc" "call" "lock" "lock";
-        }
-        Ctrl+Alt+Delete {
-            spawn "${dmsPath}" "ipc" "call" "processlist" "toggle";
-        }
-
-        // === Audio Controls ===
-        XF86AudioRaiseVolume allow-when-locked=true {
-            spawn "${dmsPath}" "ipc" "call" "audio" "increment" "3";
-        }
-        XF86AudioLowerVolume allow-when-locked=true {
-            spawn "${dmsPath}" "ipc" "call" "audio" "decrement" "3";
-        }
-        XF86AudioMute allow-when-locked=true {
-            spawn "${dmsPath}" "ipc" "call" "audio" "mute";
-        }
-        XF86AudioMicMute allow-when-locked=true {
-            spawn "${dmsPath}" "ipc" "call" "audio" "micmute";
-        }
-
-        // === Monitor Brightness Controls ===
-        XF86MonBrightnessUp allow-when-locked=true {
-           spawn "${dmsPath}" "ipc" "call" "brightness" "increment" "5" "";
-        }
-        XF86MonBrightnessDown allow-when-locked=true {
-           spawn "${dmsPath}" "ipc" "call" "brightness" "decrement" "5" "";
-        }
-      ''
-    else
-      "";
-in
-''
+  noctaliaKeybinds = ''
+    // === Noctalia Controls ===
+    Mod+Comma {
+        spawn "noctalia-shell" "ipc" "call" "settings" "toggle";
+    }
+    Mod+Alt+S {
+        spawn "noctalia-shell" "ipc" "call" "settings" "toggle";
+    }
+    Mod+Shift+C {
+        spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle";
+    }
+  '';
+in ''
   binds {
       // === System & Overview ===
       Mod+X repeat=false { toggle-overview; }
@@ -98,13 +34,12 @@ in
       Mod+Shift+Slash { show-hotkey-overlay; }
 
       // === Application Launchers ===
-      Mod+T { spawn "${terminal}"; }
-      Mod+Return { spawn "${terminal}"; }
+      Mod+T { spawn "ghostty"; }
+      Mod+Return { spawn "ghostty"; }
       Mod+Y { spawn "fuzzel"; }
       Mod+Space { spawn ${launcherCommand}; }
 
       ${noctaliaKeybinds}
-      ${dmsKeybinds}
 
       // === Security ===
       Super+L { spawn "hyprlock"; }
@@ -264,17 +199,9 @@ in
       Mod+Alt+P { power-off-monitors; }
 
       // === Custom Application Launchers ===
-      Mod+G { spawn "Telegram"; }
-      Mod+Shift+Ctrl+C { spawn "${terminal}" "claude"; }
       Ctrl+Mod+N { spawn "obsidian"; }
-      Mod+B { spawn "${browser}"; }
-      Mod+D { spawn "vesktop"; }
-      Mod+S { spawn "steam"; }
-      Mod+Shift+O { spawn "obs"; }
-      Mod+Z { spawn "zed-fix"; }
+      Mod+B { spawn "zen"; }
       Mod+F { spawn "thunar"; }
-      Ctrl+Mod+V { spawn "virt-manager"; }
-      Ctrl+Mod+E { spawn "emopicker9000"; }
 
       // === Color picker ===
       Mod+C { spawn-sh "niri msg pick-color | grep 'Hex:' | cut -d' ' -f2 | wl-copy"; }

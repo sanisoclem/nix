@@ -7,7 +7,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf.url = "github:notashelf/nvf";
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     superfile.url = "github:yorukot/superfile";
     utils.url = "github:numtide/flake-utils";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -21,6 +24,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
+    lazyvim.url = "github:pfassina/lazyvim-nix";
   };
   outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
