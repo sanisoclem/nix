@@ -102,7 +102,7 @@ in {
       Description = "Portal service";
       After = [
         "graphical-session.target"
-        "pipewire.service"
+        # "pipewire.service"
       ];
       PartOf = ["graphical-session.target"];
     };
@@ -124,10 +124,10 @@ in {
       Description = "Portal service (GNOME implementation)";
       After = [
         "graphical-session.target"
-        "pipewire.service"
+        # "pipewire.service"
       ];
       PartOf = ["graphical-session.target"];
-      Requires = ["pipewire.service"];
+      Requires = []; # ["pipewire.service"];
     };
     Service = {
       Type = "dbus";
