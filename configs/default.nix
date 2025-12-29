@@ -21,11 +21,13 @@
     ./fish.nix
     ./fishrc-personal.nix
     ./noctalia-shell
+    inputs.lazyvim.homeManagerModules.default
   ];
 
   qt.enable = true;
   xdg.enable = true;
   programs = {
+    lazyvim.enable = true;
     zsh = {
       enable = true;
     };

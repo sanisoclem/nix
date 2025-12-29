@@ -1,15 +1,8 @@
 {
   host,
-  terminal,
-  browser,
-  barChoice,
-  hostKeybinds ? "",
   config,
   ...
 }: let
-  # Full path to dms binary for use in niri
-  dmsPath = "${config.home.homeDirectory}/.local/bin/dms";
-
   # Determine launcher command based on barChoice
   launcherCommand = ''"noctalia-shell" "ipc" "call" "launcher" "toggle"'';
 
@@ -210,7 +203,5 @@ in ''
       Mod+P { set-dynamic-cast-monitor; }
       Mod+Shift+P { set-dynamic-cast-window; }
       Mod+Ctrl+P { clear-dynamic-cast-target; }
-
-      ${hostKeybinds}
   }
 ''

@@ -11,7 +11,7 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    superfile.url = "github:yorukot/superfile";
+    superfile.url = "github:yorukot/superfile/1.4.0-release";
     utils.url = "github:numtide/flake-utils";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";

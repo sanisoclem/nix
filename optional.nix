@@ -14,6 +14,11 @@
 
   stylix = {
     enable = true;
+
+    image = pkgs.fetchurl {
+      url = "https://getwallpapers.com/wallpaper/full/2/1/b/198271.jpg";
+      hash = "sha256-KXNePtw2/W6PI+bY1fqrOCgpwORO1d920nUnQx/UzZA=";
+    };
     polarity = "dark";
     opacity.terminal = 1.0;
     cursor = {

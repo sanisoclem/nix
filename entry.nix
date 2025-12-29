@@ -31,6 +31,8 @@
   programs.niri.package = pkgs.niri;
 
   services = {
+    upower.enable = true;
+    power-profiles-daemon.enable = true;
     gnome.gnome-keyring.enable = true;
     openssh.enable = true;
     blueman.enable = true;
@@ -49,7 +51,17 @@
       openFirewall = true;
     };
     ipp-usb.enable = true;
-    pulseaudio.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      wireplumber.enable = true; # Enable WirePlumber session manager
+    };
+    smartd = {
+      enable = true;
+      autodetect = true;
+    };
     xserver = {
       enable = false;
       xkb = {
@@ -96,9 +108,6 @@
     dejavu_fonts
     fira-code
     fira-code-symbols
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
     font-awesome
     jetbrains-mono
     material-icons

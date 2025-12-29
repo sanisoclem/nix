@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./configs
-    inputs.lazyvim.homeManagerModules.default
   ];
 
   home = {
