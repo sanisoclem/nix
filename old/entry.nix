@@ -38,7 +38,7 @@
     blueman.enable = true;
     displayManager = {
       sddm.enable = true;
-      sessionPackages = [pkgs.niri];
+      # sessionPackages = [pkgs.niri];
     };
     printing = {
       enable = true;

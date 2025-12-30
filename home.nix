@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    ./home
+    ./config/default.nix
   ];
 
   home = {
@@ -13,7 +13,18 @@
     stateVersion = "25.11";
   };
 
+  qt.enable = true;
+  xdg.enable = true;
   programs = {
+    zsh = {
+      enable = true;
+    };
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+    };
+    starship.enable = true;
+    lazygit.enable = true;
     alacritty.enable = true; # Super+T in the default setting (terminal)
     fuzzel.enable = true; # Super+D in the default setting (app launcher)
     swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)

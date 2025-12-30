@@ -32,7 +32,7 @@
       sddm = {
         enable = true;
         wayland.enable = true;
-        sessionPackages = [pkgs.niri];
+        # sessionPackages = [pkgs.niri];
       };
     };
   };
