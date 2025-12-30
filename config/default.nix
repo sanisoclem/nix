@@ -7,5 +7,6 @@
   imports = [
     ./btop.nix
     ./ghostty.nix
+    ./eza.nix
   ];
 }

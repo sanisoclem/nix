@@ -4,7 +4,8 @@
     package = pkgs.ghostty;
   };
   home.file."./.config/ghostty/config".text = ''
-
     theme = Dracula
+    keybind = clear
+    title = ""
   '';
 }
