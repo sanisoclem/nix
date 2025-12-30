@@ -32,6 +32,7 @@
     onefetch
     fastfetch
     obsidian
+    zen-browser
   ];
 
   programs = {
