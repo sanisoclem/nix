@@ -3,13 +3,26 @@
   lib,
   pkgs,
   ...
-}: {
+}: let 
+
+
+  sddm-astronaut = pkgs.sddm-astronaut.override {
+    embeddedTheme = "pixel_sakura";
+    themeConfig = {
+      FormPosition = "left";
+      Blur = "4.0";
+        };
+  };
+  in 
+{
   imports = [
     ./hardware-configuration.nix
     ./sys-packages.nix
   ];
 
   boot = {
+    kernelModules = [ "amdgpu" ];
+    kernelParams = [ "radeon.audio=1" ];
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
   };
@@ -28,11 +41,18 @@
     xserver = {
       enable = false;
     };
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
     displayManager = {
       sddm = {
+        package = pkgs.kdePackages.sddm;
+        extraPackages = [sddm-astronaut];
         enable = true;
         wayland.enable = true;
-        # sessionPackages = [pkgs.niri];
+        theme = "sddm-astronaut-theme";
       };
     };
   };
@@ -62,6 +82,7 @@
     btop
     bat
     xclip
+    sddm-astronaut
   ];
 
   fonts.packages = with pkgs; [
@@ -82,6 +103,8 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  hardware.bluetooth.enable = true;
+  hardware.enableRedistributableFirmware = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;

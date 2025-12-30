@@ -31,7 +31,11 @@
     bash = {
       enable = true;
       shellAliases = {
-        btw = "echo I use nixos, btw";
+        ls = "eza";
+        lt = "eza --tree --level=2";
+        ll = "eza  -lh --no-user --long";
+        la = "eza -lah ";
+        tree = "eza --tree ";
       };
     };
     fastfetch.enable = true;
