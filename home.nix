@@ -1,10 +1,8 @@
+{ pkgs, inputs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   imports = [
-    ./config/default.nix
+    ./config
+    inputs.lazyvim.homeManagerModules.default
   ];
 
   home = {
@@ -23,6 +21,7 @@
       enable = true;
       enableBashIntegration = true;
     };
+    home-manager.enable = true;
     starship.enable = true;
     lazygit.enable = true;
     alacritty.enable = true; # Super+T in the default setting (terminal)
@@ -35,9 +34,77 @@
         btw = "echo I use nixos, btw";
       };
     };
-    lazyvim.enable = true;
     fastfetch.enable = true;
-    git.enable = true;
+    lazyvim = {
+      enable = true;
+      extras = {
+        lang.nix.enable = true;
+        lang.rust = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = false;
+          config = ''
+            return {
+              "neovim/nvim-lspconfig",
+              opts = {
+                servers = {
+                  rust_analyzer = {
+                    settings = {
+                      ["rust-analyzer"] = {
+                        cargo = { features = "all" },
+                      },
+                    },
+                  },
+                },
+              },
+            }
+          '';
+        };
+      };
+
+      # Additional packages (optional)
+      extraPackages = with pkgs; [
+        nixd       # Nix LSP
+        alejandra  # Nix formatter
+      ];
+
+      # Only needed for languages not covered by LazyVim
+      treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
+        wgsl      # WebGPU Shading Language
+      ];  
+    };
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "sanisoclem";
+          email = "mel@busstop.dev";
+        };
+        push.default = "simple";
+        alias = {
+          tree = "log --oneline --decorate --all --graph";
+          acm = "!git add . && git commit -m";
+          ac = "!git add . && git commit";
+          acf = "!git add . && git commit --fixup HEAD";
+          ds = "diff --stat";
+          dc = "diff --cached";
+          dcs = "diff --stat --cached";
+          s = "status -s";
+          co = "checkout";
+          cob = "checkout -b";
+          com = "checkout origin/master";
+          com2 = "checkout origin/main";
+          puush = "push -u origin HEAD";
+          pf = "push -f";
+          poof = "push -f";
+          rst = "reset HEAD --hard";
+          rbmi = "rebase origin/master -i --autosquash";
+          rbmi2 = "rebase origin/main -i --autosquash";
+          cleanup = "!git fetch --prune -v && git co master && git merge origin/master --ff-only && git branch --merged | grep -v '\\*' > /tmp/merged && vi /tmp/merged && xargs git branch -d < /tmp/merged";
+          cleanup2 = "!git fetch --prune -v && git co main && git merge origin/main --ff-only && git branch --merged | grep -v '\\*' > /tmp/merged-main && vi /tmp/merged-main && xargs git branch -d < /tmp/merged-main";
+        };
+      };
+    };
   };
   services = {
     mako.enable = true; # notification daemon

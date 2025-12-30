@@ -6,6 +6,6 @@
 }: {
   imports = [
     ./btop.nix
-    inputs.lazyvim.homeManagerModules.default
+    ./ghostty.nix
   ];
 }

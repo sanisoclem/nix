@@ -1,8 +1,7 @@
 {
   pkgs,
   zen-browser,
-  superfile,
-  noctalia,
+  system,
   lib,
   ...
 }: {
@@ -33,7 +32,6 @@
     onefetch
     fastfetch
     obsidian
-    zen-browser
   ];
 
   programs = {

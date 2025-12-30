@@ -25,31 +25,39 @@
     };
     lazyvim.url = "github:pfassina/lazyvim-nix";
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations.melnix = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs;
-        zen-browser = inputs.zen-browser.packages.${system}.default;
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+    in
+    {
+      nixosConfigurations.melnix = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          inherit system;
+          zen-browser = inputs.zen-browser.packages.${system}.default;
+        };
+        modules = [
+          ./configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit system;
+              };
+              users.mel = import ./home.nix;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
       };
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.mel = import ./home.nix;
-            backupFileExtension = "backup";
-          };
-        }
-      ];
     };
-  };
 }
