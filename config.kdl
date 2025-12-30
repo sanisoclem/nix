@@ -711,7 +711,7 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-# noctalia specific stuff
+// noctalia specific stuff
 
 
 debug {
