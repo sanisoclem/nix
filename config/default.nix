@@ -8,5 +8,6 @@
     ./btop.nix
     ./ghostty.nix
     ./eza.nix
+    ./noctalia.nix
   ];
 }

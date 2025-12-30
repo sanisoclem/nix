@@ -4,8 +4,6 @@
   pkgs,
   ...
 }: let 
-
-
   sddm-astronaut = pkgs.sddm-astronaut.override {
     embeddedTheme = "pixel_sakura";
     themeConfig = {
@@ -18,6 +16,7 @@
   imports = [
     ./hardware-configuration.nix
     ./sys-packages.nix
+    ./noctalia.nix
   ];
 
   boot = {
@@ -38,6 +37,8 @@
   services = {
     openssh.enable = true;
     blueman.enable = true;
+    power-profiles-daemon.enable = true;
+    upower.enable = true;
     xserver = {
       enable = false;
     };
