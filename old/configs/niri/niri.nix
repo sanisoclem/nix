@@ -40,6 +40,12 @@ in {
 
     ${layoutModule}
 
+    output "eDP-1" {
+        mode "5120x2160@120"
+        scale 1.0
+        position x=0 y=0 
+    }
+
     ${keybindsModule}
 
     ${windowrulesModule}

@@ -16,6 +16,12 @@
     bat
     xclip
     bluetui
+    alacritty
+    fuzzel
+    swaylock
+    mako
+    swayidle
+    swaybg
     xwayland-satellite
     rustup
     zellij
@@ -28,17 +34,26 @@
     gdu # TUI for disk usage
     pavucontrol
     playerctl
+    waypaper
     youtube-music
     localsend
+    rofi-emoji
     onefetch
     fastfetch
     obsidian
+    superfile
     zen-browser
+    ffmpegthumbnailer
+    noctalia
+
+    gum
+    gtk3
+    gtk4
   ];
 
   programs = {
-    niri.enable = true;
-    firefox.enable = true;
+    fish.enable = true;
+    zsh.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
@@ -52,6 +67,21 @@
     neovim = {
       enable = false;
       defaultEditor = false;
+    };
+    dconf.enable = true;
+    seahorse.enable = true;
+    hyprland = {
+      enable = true;
+      package = pkgs.hyprland;
+      portalPackage = pkgs.xdg-desktop-portal-hyprland;
+    };
+    hyprlock.enable = true;
+    fuse.userAllowOther = true;
+    mtr.enable = true;
+    adb.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
     };
   };
 

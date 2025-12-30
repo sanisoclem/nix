@@ -25,31 +25,33 @@
     };
     lazyvim.url = "github:pfassina/lazyvim-nix";
   };
-  outputs = {
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: let
+  outputs = {nixpkgs, ...} @ inputs: let
     system = "x86_64-linux";
-  in {
-    nixosConfigurations.melnix = nixpkgs.lib.nixosSystem {
-      inherit system;
-      specialArgs = {
-        inherit inputs;
-        zen-browser = inputs.zen-browser.packages.${system}.default;
+
+    mkHost = {
+      hostname,
+      username,
+    }:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          host = hostname;
+          inherit username;
+          zen-browser = inputs.zen-browser.packages.${system}.default;
+          superfile = inputs.superfile.packages.${system}.default;
+          noctalia = inputs.noctalia.packages.${system}.default;
+        };
+        modules = [
+          ./entry.nix
+        ];
       };
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.mel = import ./home.nix;
-            backupFileExtension = "backup";
-          };
-        }
-      ];
+  in {
+    nixosConfigurations = {
+      melnix = mkHost {
+        hostname = "melnix";
+        username = "mel";
+      };
     };
   };
 }

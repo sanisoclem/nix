@@ -182,11 +182,6 @@ in ''
       Mod+Alt+Shift+S { spawn "ignis" "run-command" "recorder-record-region"; }
       Mod+Alt+Shift+W { spawn "ignis" "run-command" "recorder-record-portal"; }
 
-      // === Noctalia Config Sync ===
-      Ctrl+Shift+S {
-          spawn "sh" "-c" "/home/don/black-don-os/modules/home/noctalia-shell/sync-from-gui.py && notify-send 'Noctalia Config' 'Settings synced to Nix template' -i preferences-system";
-      }
-
       // === System Controls ===
       Mod+Escape { spawn "ignis" "open-window" "PowerMenu"; }
       Mod+Alt+P { power-off-monitors; }
