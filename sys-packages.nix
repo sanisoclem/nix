@@ -33,6 +33,9 @@
     fastfetch
     obsidian
     zen-browser
+    kdePackages.qt6ct
+
+    libgcc # for cc linker needed by rust
   ];
 
   programs = {

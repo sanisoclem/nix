@@ -118,6 +118,8 @@
 
   home.packages = with pkgs; [
     swaybg # wallpaper
+    harlequin
+    python313Packages.harlequin-postgres
   ];
 
   xdg.configFile."niri/config.kdl".source = ./config.kdl;

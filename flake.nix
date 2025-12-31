@@ -18,11 +18,12 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     quickshell = {
       url = "github:outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.quickshell.follows = "quickshell";
     };
     lazyvim.url = "github:pfassina/lazyvim-nix";
   };
