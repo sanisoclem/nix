@@ -38,11 +38,18 @@
         tree = "eza --tree ";
       };
     };
+    neovim.plugins = [
+      pkgs.vimPlugins.nvim-treesitter
+      pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+    ];
     fastfetch.enable = true;
     lazyvim = {
       enable = true;
+      pluginSource = "nixpkgs";
+      installCoreDependencies = true;
       extras = {
         lang.nix.enable = true;
+        lang.tailwind.enable = true;
         lang.rust = {
           enable = true;
           installDependencies = true;
@@ -68,8 +75,11 @@
 
       # Additional packages (optional)
       extraPackages = with pkgs; [
+        tree-sitter
+        bacon
         nixd       # Nix LSP
         alejandra  # Nix formatter
+        pkgs.vimPlugins.statix
       ];
 
       # Only needed for languages not covered by LazyVim

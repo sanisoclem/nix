@@ -16,7 +16,6 @@
     xclip
     bluetui
     xwayland-satellite
-    rustup
     zellij
     fnm
     gh
@@ -39,6 +38,7 @@
   ];
 
   programs = {
+    direnv.enable = true;
     niri.enable = true;
     firefox.enable = true;
     thunar = {
