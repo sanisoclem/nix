@@ -33,6 +33,7 @@
     obsidian
     zen-browser
     kdePackages.qt6ct
+    kdePackages.kcalc
 
     libgcc # for cc linker needed by rust
   ];

@@ -50,6 +50,11 @@
       extras = {
         lang.nix.enable = true;
         lang.tailwind.enable = true;
+        lang.svelte = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = true;
+        };
         lang.rust = {
           enable = true;
           installDependencies = true;
@@ -79,6 +84,7 @@
         bacon
         nixd       # Nix LSP
         alejandra  # Nix formatter
+        statix
         pkgs.vimPlugins.statix
       ];
 
