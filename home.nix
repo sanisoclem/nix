@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ lib, pkgs, inputs, ... }:
 {
   imports = [
     ./config
@@ -37,6 +37,10 @@
         la = "eza -lah ";
         tree = "eza --tree ";
       };
+      initExtra = lib.mkOrder 2000
+      ''
+        eval "$(${lib.getExe pkgs.fzf} --bash)"    
+      '';
     };
     neovim.plugins = [
       pkgs.vimPlugins.nvim-treesitter
@@ -51,6 +55,11 @@
         lang.nix.enable = true;
         lang.tailwind.enable = true;
         lang.svelte = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = true;
+        };
+        lang.typescript = {
           enable = true;
           installDependencies = true;
           installRuntimeDependencies = true;
@@ -86,11 +95,17 @@
         alejandra  # Nix formatter
         statix
         pkgs.vimPlugins.statix
+        svelte-language-server
+        tailwindcss-language-server
+        typescript-language-server
+        pkgs.vimPlugins.nvim-vtsls
+        vtsls
       ];
 
       # Only needed for languages not covered by LazyVim
       treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
         wgsl      # WebGPU Shading Language
+        svelte
       ];  
     };
     git = {
@@ -136,6 +151,7 @@
     swaybg # wallpaper
     harlequin
     python313Packages.harlequin-postgres
+    fzf
   ];
 
   xdg.configFile."niri/config.kdl".source = ./config.kdl;

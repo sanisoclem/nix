@@ -24,5 +24,8 @@
     unfocused-split-opacity = 0.5
     quick-terminal-position = center
     shell-integration-features = cursor,sudo
+    keybind = ctrl+shift+c=copy_to_clipboard
+    keybind = ctrl+shift+v=paste_from_clipboard
+
   '';
 }

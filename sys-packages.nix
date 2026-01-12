@@ -36,6 +36,9 @@
     kdePackages.kcalc
 
     libgcc # for cc linker needed by rust
+    usbutils
+    microcom
+    gcc-arm-embedded
   ];
 
   programs = {
