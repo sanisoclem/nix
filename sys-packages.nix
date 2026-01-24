@@ -32,6 +32,7 @@
     fastfetch
     obsidian
     zen-browser
+    chromium
     kdePackages.qt6ct
     kdePackages.kcalc
 
