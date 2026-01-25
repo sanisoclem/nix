@@ -35,6 +35,8 @@
     chromium
     kdePackages.qt6ct
     kdePackages.kcalc
+    zip
+    unzip
 
     libgcc # for cc linker needed by rust
     usbutils
