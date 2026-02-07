@@ -192,6 +192,21 @@
     ];
   };
 
+  fileSystems."/mnt/share" = {
+    device = "//10.0.100.30/shared";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+      in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
+  };
+  fileSystems."/mnt/mel" = {
+    device = "//10.0.100.30/mel";
+    fsType = "cifs";
+    options = let
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+      in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
+  };
+
   environment.systemPackages = with pkgs; [
     vim
     wget

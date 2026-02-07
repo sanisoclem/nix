@@ -45,6 +45,10 @@
     neovim.plugins = [
       pkgs.vimPlugins.nvim-treesitter
       pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+      pkgs.vimPlugins.nvim-treesitter-parsers.wgsl
+      pkgs.vimPlugins.nvim-treesitter-parsers.wgsl_bevy
+      pkgs.vimPlugins.statix
+      pkgs.vimPlugins.nvim-vtsls
     ];
     fastfetch.enable = true;
     lazyvim = {
@@ -94,18 +98,16 @@
         nixd       # Nix LSP
         alejandra  # Nix formatter
         statix
-        pkgs.vimPlugins.statix
         svelte-language-server
         tailwindcss-language-server
         typescript-language-server
-        pkgs.vimPlugins.nvim-vtsls
+        wgsl-analyzer
         vtsls
       ];
 
-      # Only needed for languages not covered by LazyVim
-      treesitterParsers = with pkgs.vimPlugins.nvim-treesitter.grammarPlugins; [
-        wgsl      # WebGPU Shading Language
-        svelte
+      treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+        wgsl
+        # svelte
       ];  
     };
     git = {

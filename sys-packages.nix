@@ -37,6 +37,7 @@
     kdePackages.kcalc
     zip
     unzip
+    cifs-utils
 
     libgcc # for cc linker needed by rust
     usbutils
